@@ -467,7 +467,8 @@ const UserProfile = () => {
                   {recentPosts.map((post) => (
                     <Link
                       key={post._id}
-                      to={`/posts/${post._id}`}
+                      to="/posts"
+                      onClick={() => window.scrollTo(0, 0)}
                       className="block bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors"
                     >
                       <h3 className="text-lg font-semibold text-white mb-2">{post.title}</h3>
