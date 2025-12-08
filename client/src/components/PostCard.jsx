@@ -14,6 +14,7 @@ const PostCard = ({ post, onPostUpdate, onPostDelete }) => {
   const [newComment, setNewComment] = useState('');
   const [isCommenting, setIsCommenting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(post.title || '');
   const [editContent, setEditContent] = useState(post.content || '');
@@ -96,18 +97,28 @@ const PostCard = ({ post, onPostUpdate, onPostDelete }) => {
     try {
       const response = await axios.delete(
         `${backendUrl}/api/post/${post._id}`,
-        { headers: { token } }
+        { 
+          headers: { token },
+          data: { confirmed: true }
+        }
       );
 
       if (response.data.success) {
         if (onPostDelete) {
           onPostDelete(post._id);
         }
+        setShowDeleteConfirm(false);
+        setShowDeleteModal(false);
       }
     } catch (error) {
       console.error('Error deleting post:', error);
       alert(error.response?.data?.message || 'Failed to delete post');
     }
+  };
+
+  const confirmDelete = () => {
+    setShowDeleteConfirm(false);
+    setShowDeleteModal(true);
   };
 
   const handleUpdatePost = async (e) => {
@@ -186,7 +197,7 @@ const PostCard = ({ post, onPostUpdate, onPostDelete }) => {
                     Edit Post
                   </button>
                   <button
-                    onClick={handleDeletePost}
+                    onClick={confirmDelete}
                     className="block w-full text-left px-4 py-2 text-red-400 hover:bg-gray-600"
                   >
                     Delete Post
@@ -395,6 +406,32 @@ const PostCard = ({ post, onPostUpdate, onPostDelete }) => {
                 </div>
               ))
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowDeleteModal(false)}>
+          <div className="bg-gray-800 border border-gray-700 rounded-lg p-6 max-w-md mx-4" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-xl font-bold text-white mb-4">Delete Post?</h3>
+            <p className="text-gray-300 mb-6">
+              Are you sure you want to delete this post? This action cannot be undone.
+            </p>
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeletePost}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}

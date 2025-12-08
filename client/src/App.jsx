@@ -47,13 +47,14 @@ const App = () => {
         <Route path='/books' element={<BrowseBooks/>}/>
         <Route path='/books/:id' element={<BookDetails/>}/>
         <Route path='/about' element={<About/>}/>
+        <Route path='/buy' element={<Subscription />} />
+        <Route path='/subscription' element={<Subscription />} />
         
         {/* Protected Routes - Require Authentication */}
         <Route path='/friends' element={<ProtectedRoute><Friends/></ProtectedRoute>}/>
         <Route path='/recommendations' element={<ProtectedRoute><Recommendations/></ProtectedRoute>}/>
         <Route path='/my-lists' element={<ProtectedRoute><MyLists/></ProtectedRoute>}/>
         <Route path='/notifications' element={<ProtectedRoute><Notifications/></ProtectedRoute>}/>
-        <Route path='/subscription' element={<ProtectedRoute><Subscription /></ProtectedRoute>} />
         <Route path='/profile/:userId' element={<ProtectedRoute><UserProfile/></ProtectedRoute>}/>
         <Route path='/settings' element={<ProtectedRoute><Settings/></ProtectedRoute>}/>
       </Routes>

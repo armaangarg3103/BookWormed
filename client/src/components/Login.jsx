@@ -14,6 +14,7 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [usernameAvailable, setUsernameAvailable] = useState(null)
   const [checkingUsername, setCheckingUsername] = useState(false)
   const [resetToken, setResetToken] = useState('')
@@ -84,6 +85,24 @@ const Login = () => {
           toast.error(data.message)
         }
       } else if (state === 'Reset Password') {
+        // Validate password match
+        if (password !== confirmPassword) {
+          toast.error('Passwords do not match')
+          return
+        }
+
+        // Validate password strength
+        if (password.length < 8) {
+          toast.error('Password must be at least 8 characters long')
+          return
+        }
+        
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/
+        if (!passwordRegex.test(password)) {
+          toast.error('Password must contain at least one uppercase letter, one lowercase letter, and one number')
+          return
+        }
+
         const { data } = await axios.post(backendUrl + '/api/user/reset-password', { 
           token: resetToken, 
           newPassword: password 
@@ -93,6 +112,7 @@ const Login = () => {
           setState('Login')
           setEmail('')
           setPassword('')
+          setConfirmPassword('')
           setResetToken('')
         } else {
           toast.error(data.message)
@@ -119,6 +139,24 @@ const Login = () => {
         // Validate Gmail only
         if (!email.toLowerCase().endsWith('@gmail.com')) {
           toast.error('Please use a valid Gmail address')
+          return
+        }
+
+        // Validate password match
+        if (password !== confirmPassword) {
+          toast.error('Passwords do not match')
+          return
+        }
+
+        // Validate password strength before sending verification code
+        if (password.length < 8) {
+          toast.error('Password must be at least 8 characters long')
+          return
+        }
+        
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/
+        if (!passwordRegex.test(password)) {
+          toast.error('Password must contain at least one uppercase letter, one lowercase letter, and one number')
           return
         }
 
@@ -255,17 +293,32 @@ const Login = () => {
         )}
 
         {(state === 'Sign Up' || state === 'Login') && (
-          <div className="border px-6 py-2 flex items-center gap-2 rounded-full mt-4">
-            <img src={assets.lock_icon} alt="" />
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              type="password"
-              className="outline-none text-sm"
-              placeholder="Password"
-              required
-            />
-          </div>
+          <>
+            <div className="border px-6 py-2 flex items-center gap-2 rounded-full mt-4">
+              <img src={assets.lock_icon} alt="" />
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                type="password"
+                className="outline-none text-sm"
+                placeholder="Password"
+                required
+              />
+            </div>
+            {state === 'Sign Up' && (
+              <div className="border px-6 py-2 flex items-center gap-2 rounded-full mt-4">
+                <img src={assets.lock_icon} alt="" />
+                <input
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={confirmPassword}
+                  type="password"
+                  className="outline-none text-sm"
+                  placeholder="Confirm Password"
+                  required
+                />
+              </div>
+            )}
+          </>
         )}
 
         {state === 'Reset Password' && (
@@ -289,6 +342,17 @@ const Login = () => {
                 type="password"
                 className="outline-none text-sm"
                 placeholder="New Password"
+                required
+              />
+            </div>
+            <div className="border px-6 py-2 flex items-center gap-2 rounded-full mt-4">
+              <img src={assets.lock_icon} alt="" />
+              <input
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
+                type="password"
+                className="outline-none text-sm"
+                placeholder="Confirm New Password"
                 required
               />
             </div>

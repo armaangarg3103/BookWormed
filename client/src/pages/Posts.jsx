@@ -2,15 +2,20 @@ import React, { useContext, useRef, useState, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import CreatePost from '../components/CreatePost';
 import PostFeed from '../components/PostFeed';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const Posts = () => {
   const { user, setShowLogin, token, backendUrl } = useContext(AppContext);
   const postFeedRef = useRef(null);
+  const location = useLocation();
   const [followingReviews, setFollowingReviews] = useState([]);
   const [loadingReviews, setLoadingReviews] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     if (user && token) {
