@@ -7,32 +7,38 @@ const About = () => {
     {
       icon: "📚",
       title: "Vast Book Collection",
-      description: "Browse through thousands of engineering and technical books, from classic textbooks to modern references."
+      description: "Browse through thousands of engineering and technical books, from classic textbooks to modern references.",
+      link: "/books"
     },
     {
       icon: "⭐",
       title: "Rate & Review",
-      description: "Share your thoughts and help others discover great books through ratings and detailed reviews."
+      description: "Share your thoughts and help others discover great books through ratings and detailed reviews.",
+      link: "/books"
     },
     {
       icon: "📝",
       title: "Personal Lists",
-      description: "Organize your reading with custom lists like Want to Read, Currently Reading, and Favorites."
+      description: "Organize your reading with custom lists like Want to Read, Currently Reading, and Favorites.",
+      link: "/my-lists"
     },
     {
       icon: "💬",
       title: "Community Posts",
-      description: "Engage with fellow readers through community discussions, book recommendations, and study tips."
+      description: "Engage with fellow readers through community discussions, book recommendations, and study tips.",
+      link: "/posts"
     },
     {
       icon: "🔍",
       title: "Smart Search",
-      description: "Find exactly what you're looking for with powerful search and filtering options."
+      description: "Find exactly what you're looking for with powerful search and filtering options.",
+      link: "/search"
     },
     {
       icon: "📊",
       title: "Track Progress",
-      description: "Monitor your reading journey with progress tracking and reading statistics."
+      description: "Monitor your reading journey with progress tracking and reading statistics.",
+      link: "/my-lists"
     }
   ];
 
@@ -104,14 +110,15 @@ const About = () => {
           <h2 className="text-3xl font-bold text-white mb-8 text-center">What We Offer</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
-              <div
+              <Link
                 key={index}
-                className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-blue-500 transition-all hover:transform hover:scale-105"
+                to={feature.link}
+                className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-blue-500 transition-all hover:transform hover:scale-105 cursor-pointer group"
               >
-                <div className="text-5xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
+                <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform">{feature.icon}</div>
+                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors">{feature.title}</h3>
                 <p className="text-gray-400">{feature.description}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

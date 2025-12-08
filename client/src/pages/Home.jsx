@@ -300,9 +300,11 @@ const Home = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {recentPosts.map((post) => (
-                <div
+                <Link
                   key={post._id}
-                  className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-blue-500 transition-all"
+                  to="/posts"
+                  onClick={() => window.scrollTo(0, 0)}
+                  className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-blue-500 transition-all cursor-pointer"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-400 flex items-center justify-center text-white font-bold">
@@ -321,7 +323,7 @@ const Home = () => {
                     <span>❤️ {post.likes?.length || 0}</span>
                     <span>💬 {post.comments?.length || 0}</span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

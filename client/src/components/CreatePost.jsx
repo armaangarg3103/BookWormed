@@ -129,17 +129,6 @@ const CreatePost = ({ onPostCreated }) => {
         <div className="mb-4">
           <input
             type="text"
-            placeholder="Image URL (optional)"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full px-4 py-2 bg-gray-700 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            disabled={isSubmitting}
-          />
-        </div>
-
-        <div className="mb-4">
-          <input
-            type="text"
             placeholder="Tags (comma or # separated, e.g., fiction, mystery or #fiction #mystery)"
             value={tags}
             onChange={(e) => setTags(e.target.value)}

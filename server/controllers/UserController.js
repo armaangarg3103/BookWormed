@@ -518,8 +518,8 @@ const forgotPassword = async (req, res) => {
     // Find user by email
     const user = await userModel.findOne({ email });
     if (!user) {
-      // Generic message to prevent email enumeration
-      return res.json({ success: true, message: 'If an account exists with this email, a reset code has been sent.' });
+      // Return error message to prevent non-existent users from proceeding
+      return res.json({ success: false, message: 'No account found with this email address. Please sign up first.' });
     }
 
     // Log password reset request
