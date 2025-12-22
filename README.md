@@ -1,5 +1,8 @@
 # **📚 BookWormed — Social Reading Platform**
 
+Live Application:
+🔗 https://book-wormed.vercel.app/
+
 BookWormed is a full-stack social reading platform that enables users to discover books, publish reviews and posts, join reading groups, manage personalized reading lists, and purchase in-app credits.
 
 The platform is built using a modern MERN architecture with secure JWT-based authentication, Stripe/Razorpay payments, real-time notifications, and automated data ingestion pipelines for large book datasets.
