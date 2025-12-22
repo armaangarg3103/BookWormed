@@ -1,7 +1,3 @@
-Sure! Here is a clean, professional, **GitHub-ready README.md** based on your project details. You can copy-paste directly:
-
----
-
 # **📚 BookWormed — Social Reading Platform**
 
 BookWormed is a full-stack social reading platform that enables users to discover books, publish reviews and posts, join reading groups, manage personalized reading lists, and purchase in-app credits.
